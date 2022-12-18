@@ -39,11 +39,4 @@ const startApp = async() => {
     }
 }
 
-// {
-//     "username": "maxeto",
-//     "email": "maxeto@gmail.com",
-//     "password": "maxeto123"
-
-// }
-
 startApp()
