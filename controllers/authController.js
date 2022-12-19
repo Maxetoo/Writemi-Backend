@@ -1,6 +1,6 @@
 const User = require('../models/userModel')
 const { StatusCodes } = require('http-status-codes')
-const CustomError = require('../errors')
+const CustomError = require('../errors/index')
 const { createCookie } = require('../services/helpers')
 let uniqid = require('uniqid')
 const register = async(req, res) => {

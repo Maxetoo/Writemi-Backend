@@ -1,6 +1,6 @@
 const Bookmark = require('../models/bookmarkModel')
 const { StatusCodes } = require('http-status-codes')
-const CustomError = require('../errors')
+const CustomError = require('../errors/index')
 
 const addToBookmark = async(req, res) => {
     const userID = req.user.userID

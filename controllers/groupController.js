@@ -1,7 +1,7 @@
 const Group = require('../models/groupMsgModel')
 const User = require('../models/userModel')
 const { StatusCodes } = require('http-status-codes')
-const CustomError = require('../errors')
+const CustomError = require('../errors/index')
 let uniqid = require('uniqid')
 const { checkUser, allowAccess } = require('../middlewares/authorization')
 

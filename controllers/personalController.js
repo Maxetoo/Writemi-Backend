@@ -1,7 +1,7 @@
 const PersonalMessage = require('../models/personalMsgModel')
 const User = require('../models/userModel')
 const { StatusCodes } = require('http-status-codes')
-const CustomError = require('../errors')
+const CustomError = require('../errors/index')
 const { checkUser, allowAccess } = require('../middlewares/authorization')
 const addMessage = async(req, res) => {
     const { username } = req.query
