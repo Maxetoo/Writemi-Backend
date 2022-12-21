@@ -7,11 +7,18 @@ const addToBookmark = async(req, res) => {
     const { source, message } = req.body
     if (!source && !message)
         throw new CustomError.BadRequestError(`Please fillup inputs`)
+    const findBookmark = await Bookmark.findOne({
+        message,
+        user: userID,
+    })
     const bookmark = await Bookmark.create({
         source,
         message,
         user: userID,
     })
+
+    if (findBookmark)
+        throw new CustomError.BadRequestError('Already added to bookmark')
     res.status(StatusCodes.OK).json({
         msg: `Added to bookmark successfully`,
     })
@@ -24,6 +31,7 @@ const getAllBookmarks = async(req, res) => {
     })
     res.status(StatusCodes.OK).json({
         bookmarks,
+        count: bookmarks.length,
     })
 }
 
@@ -34,8 +42,11 @@ const removeFromBookmark = async(req, res) => {
     })
     if (!bookmark)
         throw new CustomError.NotFoundError(`No bookmark id of ${id} found`)
-    await Bookmark.findOneAndDelete({
+    await Bookmark.findByIdAndRemove({
         _id: id,
+    })
+    res.status(StatusCodes.OK).json({
+        msg: `Bookmark removed successfully`,
     })
 }
 

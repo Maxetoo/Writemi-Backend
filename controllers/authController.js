@@ -30,11 +30,11 @@ const register = async(req, res) => {
 }
 
 const login = async(req, res) => {
-    const { username, password, email } = req.body
+    const { username, password } = req.body
     if (!username || !password)
         throw new CustomError.BadRequestError('Please fill up all credentails')
-    const user = await User.findOne({ username, email })
-    if (!user) throw new CustomError.BadRequestError(`invalid email or username`)
+    const user = await User.findOne({ username })
+    if (!user) throw new CustomError.BadRequestError(`invalid username`)
     const checkPassword = await user.comparePassword(password)
     if (!checkPassword) throw new CustomError.BadRequestError(`Invalid password`)
     const { suspended, banned } = user

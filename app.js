@@ -14,13 +14,23 @@ const GroupMessageRouter = require('./routes/groupMsgRoute')
 const BookmarkRouter = require('./routes/bookmarkRoute')
 const errorMiddleware = require('./middlewares/errorMiddleware')
 const notFoundMiddleware = require('./middlewares/notFoundRoute')
-
+const swaggerUi = require('swagger-ui-express')
+const YAML = require('yamljs')
+const swaggerDocument = YAML.load('./swagger.yaml')
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser(process.env.COOKIE))
 app.use(morgan('tiny'))
 app.use(cors())
 app.use(helmet())
+
+app.get('/', (req, res) => {
+    res
+        .status(200)
+        .send(`<h1>Writemi Api</h1><a href="/api-docs">Documentation</a>`)
+})
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.use('/api/v1/auth', AuthRouter)
 app.use('/api/v1/user', UserRouter)
 app.use('/api/v1/personal', PersonalMessageRouter)

@@ -1,0 +1,1132 @@
+openapi: 3.0.0
+info:
+  title: Writemi
+  contact: {}
+  version: '1.0'
+servers:
+  - url: https://writemi.onrender.com
+    variables: {}
+paths:
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login
+      operationId: Login
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          text/plain:
+            schema:
+              type: object
+              example:
+                username: maxeto
+                password: maxeto123
+            example:
+              username: maxeto
+              password: maxeto123
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  user:
+                    bookmarks: []
+                    _id: 6365a7539fb809939ca80859
+                    username: maxeto
+                    password: $2b$10$uxT7SQRlmWxRp/4p/yNoAuyQkDGA1jvWJ1UnlPL297LCadAoOYI2e
+                    email: maxeto@gmail.com
+                    role: admin
+                    verified: false
+                    suspended: false
+                    banned: false
+                    passwordRecovery: j5snanglbtdew7s
+                    createdAt: 2022-11-04T23:59:15.606Z
+                    updatedAt: 2022-12-18T21:38:50.085Z
+                    __v: 0
+                    reports: []
+              example:
+                user:
+                  bookmarks: []
+                  _id: 6365a7539fb809939ca80859
+                  username: maxeto
+                  password: $2b$10$uxT7SQRlmWxRp/4p/yNoAuyQkDGA1jvWJ1UnlPL297LCadAoOYI2e
+                  email: maxeto@gmail.com
+                  role: admin
+                  verified: false
+                  suspended: false
+                  banned: false
+                  passwordRecovery: j5snanglbtdew7s
+                  createdAt: 2022-11-04T23:59:15.606Z
+                  updatedAt: 2022-12-18T21:38:50.085Z
+                  __v: 0
+                  reports: []
+      deprecated: false
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: Register
+      operationId: Register
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          text/plain:
+            schema:
+              type: object
+              example:
+                username: testcase
+                email: testcase@gmail.com
+                password: secret123
+            example:
+              username: testcase
+              email: testcase@gmail.com
+              password: secret123
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  user:
+                    username: testcase
+                    password: $2b$10$JW5hV4YSoK4eUDTmQkrz/uiw8p030FvuF18ZQiNBCvhVPgHDBzoGW
+                    email: testcase@gmail.com
+                    role: user
+                    verified: false
+                    suspended: false
+                    banned: false
+                    bookmarks: []
+                    reports: []
+                    _id: 63a23567ecd57b0a66a33884
+                    createdAt: 2022-12-20T22:21:27.112Z
+                    updatedAt: 2022-12-20T22:21:27.112Z
+                    __v: 0
+              example:
+                user:
+                  username: testcase
+                  password: $2b$10$JW5hV4YSoK4eUDTmQkrz/uiw8p030FvuF18ZQiNBCvhVPgHDBzoGW
+                  email: testcase@gmail.com
+                  role: user
+                  verified: false
+                  suspended: false
+                  banned: false
+                  bookmarks: []
+                  reports: []
+                  _id: 63a23567ecd57b0a66a33884
+                  createdAt: 2022-12-20T22:21:27.112Z
+                  updatedAt: 2022-12-20T22:21:27.112Z
+                  __v: 0
+      deprecated: false
+      security: []
+  /auth/addPasswordRecovery:
+    post:
+      tags:
+        - Auth
+      summary: Add Recovery Password
+      operationId: AddRecoveryPassword
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  msg: Your recovery key is j5sn8rwlbwsm4o8
+              example:
+                msg: Your recovery key is j5sn8rwlbwsm4o8
+      deprecated: false
+      security: []
+  /auth/forgotPassword:
+    post:
+      tags:
+        - Auth
+      summary: Forgot Password
+      operationId: ForgotPassword
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          text/plain:
+            schema:
+              type: object
+              example:
+                recoveryKey: j5snanglbtdew7s
+            example:
+              recoveryKey: j5snanglbtdew7s
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+      deprecated: false
+      security: []
+  /auth/logout:
+    post:
+      tags:
+        - Auth
+      summary: Logout
+      operationId: Logout
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  msg: User logged out successfully
+              example:
+                msg: User logged out successfully
+      deprecated: false
+  /user/userSuspension:
+    patch:
+      tags:
+        - User
+      summary: Suspend User
+      operationId: SuspendUser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/SuspendUserRequest'
+                - example:
+                    option: nicknam
+                    answer: maxy
+            example:
+              option: nicknam
+              answer: maxy
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  msg: User status updated
+              example:
+                msg: User status updated
+      deprecated: false
+  /user:
+    get:
+      tags:
+        - User
+      summary: Get All Users
+      operationId: GetAllUsers
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  count: 5
+              example:
+                count: 5
+      deprecated: false
+  /user/makeAdmin/{user_id}:
+    patch:
+      tags:
+        - User
+      summary: Make Admin
+      operationId: MakeAdmin
+      parameters:
+        - name: user_id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  msg: User updated to admin
+              example:
+                msg: User updated to admin
+      deprecated: false
+  /user/verifyUser/{user_id}:
+    patch:
+      tags:
+        - User
+      summary: Verify User
+      operationId: VerifyUser
+      parameters:
+        - name: user_id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  msg: User verification successful
+              example:
+                msg: User verification successful
+      deprecated: false
+  /user/banUser/{user_id}:
+    patch:
+      tags:
+        - User
+      summary: Ban User
+      operationId: BanUser
+      parameters:
+        - name: user_id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  msg: User banned successfully
+              example:
+                msg: User banned successfully
+      deprecated: false
+  /personal:
+    post:
+      tags:
+        - Personal Message
+      summary: Create Message
+      operationId: CreateMessage
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/CreateMessageRequest'
+                - example:
+                    message: Always pray for me
+            example:
+              message: Always pray for me
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  personalMessages:
+                    receiver: 639f865cbef5dc951252e4d3
+                    message: Always pray for me
+                    favorite: false
+                    flagged: false
+                    archive: false
+                    _id: 63a24566a941215f8b9d376a
+                    createdAt: 2022-12-20T23:29:42.761Z
+                    updatedAt: 2022-12-20T23:29:42.761Z
+                    __v: 0
+              example:
+                personalMessages:
+                  receiver: 639f865cbef5dc951252e4d3
+                  message: Always pray for me
+                  favorite: false
+                  flagged: false
+                  archive: false
+                  _id: 63a24566a941215f8b9d376a
+                  createdAt: 2022-12-20T23:29:42.761Z
+                  updatedAt: 2022-12-20T23:29:42.761Z
+                  __v: 0
+      deprecated: false
+    get:
+      tags:
+        - Personal Message
+      summary: Get All Personal Messages
+      operationId: GetAllPersonalMessages
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+      deprecated: false
+  /personal/{message_id}:
+    delete:
+      tags:
+        - Personal Message
+      summary: Delete Message
+      operationId: DeleteMessage
+      parameters:
+        - name: message_id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  msg: Message deleted successfully
+              example:
+                msg: Message deleted successfully
+      deprecated: false
+  /personal/allMessages:
+    get:
+      tags:
+        - Personal Message
+      summary: Get All Messages
+      description: For admins only.
+      operationId: GetAllMessages
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+      deprecated: false
+  /personal/archivedMessages:
+    get:
+      tags:
+        - Personal Message
+      summary: Get All Archived Messges
+      operationId: GetAllArchivedMessges
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  messages: []
+                  count: 0
+              example:
+                messages: []
+                count: 0
+      deprecated: false
+  /personal/flaggedMessages:
+    get:
+      tags:
+        - Personal Message
+      summary: Get All Flagged Messges
+      operationId: GetAllFlaggedMessges
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  messages: []
+                  count: 0
+              example:
+                messages: []
+                count: 0
+      deprecated: false
+  /personal/favouriteMessages:
+    get:
+      tags:
+        - Personal Message
+      summary: Get All Favourite Messages
+      operationId: GetAllFavouriteMessages
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  messages: []
+                  count: 0
+              example:
+                messages: []
+                count: 0
+      deprecated: false
+  /personal/addToFavourite/{message_id}:
+    patch:
+      tags:
+        - Personal Message
+      summary: Add To Favourite
+      operationId: AddToFavourite
+      parameters:
+        - name: message_id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  msg: Message added to favourite
+              example:
+                msg: Message added to favourite
+      deprecated: false
+  /personal/addToArchive/{message_id}:
+    patch:
+      tags:
+        - Personal Message
+      summary: Add To Archive
+      operationId: AddToArchive
+      parameters:
+        - name: message_id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  msg: Message added to archive
+              example:
+                msg: Message added to archive
+      deprecated: false
+  /personal/addToFlagged/{message_id}:
+    patch:
+      tags:
+        - Personal Message
+      summary: Add To Flagged
+      operationId: AddToFlagged
+      parameters:
+        - name: message_id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  msg: Message flagged
+              example:
+                msg: Message flagged
+      deprecated: false
+  /personal/removeFromFavourite/{message_id}:
+    patch:
+      tags:
+        - Personal Message
+      summary: Remove From Favourite
+      operationId: RemoveFromFavourite
+      parameters:
+        - name: message_id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  msg: Message removed from favourite
+              example:
+                msg: Message removed from favourite
+      deprecated: false
+  /personal/removeFromArchive/{message_id}:
+    patch:
+      tags:
+        - Personal Message
+      summary: Remove From Archive
+      operationId: RemoveFromArchive
+      parameters:
+        - name: message_id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  msg: Message removed from archive
+              example:
+                msg: Message removed from archive
+      deprecated: false
+  /personal/removeFromFlagged/{message_id}:
+    patch:
+      tags:
+        - Personal Message
+      summary: Remove From Flagged
+      operationId: RemoveFromFlagged
+      parameters:
+        - name: message_id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  msg: Message removed from flagged
+              example:
+                msg: Message removed from flagged
+      deprecated: false
+  /group:
+    get:
+      tags:
+        - Group Message
+      summary: Get Group Clusters
+      operationId: GetGroupClusters
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+      deprecated: false
+  /group/space:
+    post:
+      tags:
+        - Group Message
+      summary: Create Group Space
+      operationId: CreateGroupSpace
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          text/plain:
+            schema:
+              type: object
+              example:
+                name: Testing 1
+                description: Come and share...
+                locked: false
+            example:
+              name: Testing 1
+              description: Come and share...
+              locked: false
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  space:
+                    createdBy: 6365a7539fb809939ca80859
+                    name: Testing 1
+                    description: Come and share...
+                    muted: false
+                    locked: false
+                    passkey: j5sn4
+                    _id: 63a24d8aa941215f8b9d377f
+                    messages: []
+                    createdAt: 2022-12-21T00:04:26.962Z
+                    updatedAt: 2022-12-21T00:04:26.962Z
+                    __v: 0
+              example:
+                space:
+                  createdBy: 6365a7539fb809939ca80859
+                  name: Testing 1
+                  description: Come and share...
+                  muted: false
+                  locked: false
+                  passkey: j5sn4
+                  _id: 63a24d8aa941215f8b9d377f
+                  messages: []
+                  createdAt: 2022-12-21T00:04:26.962Z
+                  updatedAt: 2022-12-21T00:04:26.962Z
+                  __v: 0
+      deprecated: false
+  /group/space/{group_id}:
+    patch:
+      tags:
+        - Group Message
+      summary: Edit Group Space
+      operationId: EditGroupSpace
+      parameters:
+        - name: group_id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      requestBody:
+        description: ''
+        content:
+          text/plain:
+            schema:
+              type: object
+              example:
+                name: vuna
+            example:
+              name: vuna
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  msg: Space updated successfully!
+              example:
+                msg: Space updated successfully!
+      deprecated: false
+    delete:
+      tags:
+        - Group Message
+      summary: Delete Group Space
+      operationId: DeleteGroupSpace
+      parameters:
+        - name: group_id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  msg: Space removed successfully!
+              example:
+                msg: Space removed successfully!
+      deprecated: false
+  /group/addMessage/{group_id}:
+    patch:
+      tags:
+        - Group Message
+      summary: Add Group Message
+      operationId: AddGroupMessage
+      parameters:
+        - name: group_id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      requestBody:
+        description: ''
+        content:
+          text/plain:
+            schema:
+              type: object
+              example:
+                message: your mind
+            example:
+              message: your mind
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  msg: Message created successfully
+              example:
+                msg: Message created successfully
+      deprecated: false
+  /group/getMessage/{group_id}:
+    get:
+      tags:
+        - Group Message
+      summary: Get Group Messages
+      operationId: GetGroupMessages
+      parameters:
+        - name: group_id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  space:
+                    - messages:
+                        - message: your mind
+                          flagged: false
+                          reports:
+                            - 6365a7539fb809939ca80859
+                          bookmarks: []
+                          _id: 639f87a2bef5dc951252e4e6
+                          createdAt: 2022-12-18T21:35:30.469Z
+                          updatedAt: 2022-12-18T21:38:50.303Z
+                          upvotes: []
+                          downvotes: []
+              example:
+                space:
+                  - messages:
+                      - message: your mind
+                        flagged: false
+                        reports:
+                          - 6365a7539fb809939ca80859
+                        bookmarks: []
+                        _id: 639f87a2bef5dc951252e4e6
+                        createdAt: 2022-12-18T21:35:30.469Z
+                        updatedAt: 2022-12-18T21:38:50.303Z
+                        upvotes: []
+                        downvotes: []
+      deprecated: false
+  /group/addUpvote/{groupMessage_id}:
+    patch:
+      tags:
+        - Group Message
+      summary: Add Group Upvote
+      operationId: AddGroupUpvote
+      parameters:
+        - name: groupMessage_id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  users:
+                    - _id: 6365a7539fb809939ca80859
+                  upvotes: 1
+              example:
+                users:
+                  - _id: 6365a7539fb809939ca80859
+                upvotes: 1
+      deprecated: false
+  /group/addDownvote/{groupMessage_id}:
+    patch:
+      tags:
+        - Group Message
+      summary: Add Group Downvote
+      operationId: AddGroupDownvote
+      parameters:
+        - name: groupMessage_id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  users:
+                    - _id: 6365a7539fb809939ca80859
+                  downvotes: 1
+              example:
+                users:
+                  - _id: 6365a7539fb809939ca80859
+                downvotes: 1
+      deprecated: false
+  /group/removeDownvote/{groupMessage_id}:
+    patch:
+      tags:
+        - Group Message
+      summary: Report Message
+      operationId: ReportMessage
+      parameters:
+        - name: groupMessage_id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  reports:
+                    - 6365a7539fb809939ca80859
+                  counts: 1
+              example:
+                reports:
+                  - 6365a7539fb809939ca80859
+                counts: 1
+      deprecated: false
+  /bookmark/addToBookmark:
+    post:
+      tags:
+        - Bookmark
+      summary: Add To Bookmark
+      operationId: AddToBookmark
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          text/plain:
+            schema:
+              type: object
+              example:
+                source: 6365acc5289536a28a41b693
+                message: My name is maxwell
+            example:
+              source: 6365acc5289536a28a41b693
+              message: My name is maxwell
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  msg: Added to bookmark successfully
+              example:
+                msg: Added to bookmark successfully
+      deprecated: false
+  /bookmark/getBookmarks:
+    get:
+      tags:
+        - Bookmark
+      summary: Get All Bookmarks
+      operationId: GetAllBookmarks
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  bookmarks:
+                    - _id: 63a250ada941215f8b9d37a4
+                      source: 6365acc5289536a28a41b693
+                      message: My name is maxwell
+                      user: 6365a7539fb809939ca80859
+                      __v: 0
+              example:
+                bookmarks:
+                  - _id: 63a250ada941215f8b9d37a4
+                    source: 6365acc5289536a28a41b693
+                    message: My name is maxwell
+                    user: 6365a7539fb809939ca80859
+                    __v: 0
+      deprecated: false
+  /bookmark/deleteBookmark/{bookmark_id}:
+    delete:
+      tags:
+        - Bookmark
+      summary: Delete Bookmark
+      operationId: DeleteBookmark
+      parameters:
+        - name: bookmark_id
+          in: path
+          description: ''
+          required: true
+          style: simple
+          schema:
+            type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  msg: Bookmark removed successfully
+              example:
+                msg: Bookmark removed successfully
+      deprecated: false
+  /bookmark/clearBookmarks:
+    delete:
+      tags:
+        - Bookmark
+      summary: Clear All Bookmarks
+      operationId: ClearAllBookmarks
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+          content:
+            text/plain:
+              schema:
+                type: object
+                example:
+                  msg: All bookmarks cleared successfully
+              example:
+                msg: All bookmarks cleared successfully
+      deprecated: false
+components:
+  schemas:
+    SuspendUserRequest:
+      title: SuspendUserRequest
+      required:
+        - option
+        - answer
+      type: object
+      properties:
+        option:
+          type: string
+        answer:
+          type: string
+      example:
+        option: nicknam
+        answer: maxy
+    CreateMessageRequest:
+      title: CreateMessageRequest
+      required:
+        - message
+      type: object
+      properties:
+        message:
+          type: string
+      example:
+        message: ''
+tags:
+  - name: Auth
+  - name: User
+  - name: Personal Message
+  - name: Group Message
+  - name: Bookmark

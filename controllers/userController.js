@@ -5,7 +5,6 @@ const { StatusCodes } = require('http-status-codes')
 const getAllUsers = async(req, res) => {
     const users = await User.find({})
     res.status(StatusCodes.OK).json({
-        users,
         count: users.length,
     })
 }
