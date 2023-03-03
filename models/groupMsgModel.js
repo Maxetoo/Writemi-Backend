@@ -1,76 +1,91 @@
 const mongoose = require('mongoose')
 
 const UpvoteSchema = new mongoose.Schema({
-    counts: {
-        type: mongoose.Types.ObjectId,
-    },
+  counts: {
+    type: mongoose.Types.ObjectId,
+  },
 })
 
 const DownvoteSchema = new mongoose.Schema({
-    counts: {
-        type: mongoose.Types.ObjectId,
-    },
+  counts: {
+    type: mongoose.Types.ObjectId,
+  },
 })
 
-const MessageSchema = new mongoose.Schema({
+const MessageSchema = new mongoose.Schema(
+  {
     message: {
-        type: String,
-        required: [true, 'Please input your message'],
-        minLength: 5,
-        maxLength: 250,
+      type: String,
+      required: [true, 'Please input your message'],
+      minLength: 5,
+      maxLength: 250,
     },
     createdBy: {
-        type: mongoose.Types.ObjectId,
+      type: mongoose.Types.ObjectId,
     },
     flagged: {
-        type: Boolean,
-        default: false,
+      type: Boolean,
+      default: false,
     },
     upvotes: [UpvoteSchema],
     downvotes: [DownvoteSchema],
-    reports: [{
+    reports: [
+      {
         type: mongoose.Types.ObjectId,
-    }, ],
-    bookmarks: [{
+      },
+    ],
+    bookmarks: [
+      {
         type: mongoose.Types.ObjectId,
-    }, ],
-}, {
+      },
+    ],
+  },
+  {
     timestamps: true,
-})
+  }
+)
 
-const groupClusterSchema = new mongoose.Schema({
+const groupClusterSchema = new mongoose.Schema(
+  {
     createdBy: {
-        type: mongoose.Types.ObjectId,
-        ref: 'User',
+      type: mongoose.Types.ObjectId,
+      ref: 'User',
+    },
+    image: {
+      type: String,
+      default:
+        'https://res.cloudinary.com/dfamily/image/upload/v1677877994/writeme/tmp-1-1677877988332_zkrbe4.jpg',
     },
     name: {
-        type: String,
-        required: true,
-        minLength: 3,
-        maxLength: 15,
-        trim: true,
+      type: String,
+      required: true,
+      minLength: 3,
+      maxLength: 15,
+      trim: true,
     },
     description: {
-        type: String,
-        minLength: 3,
+      type: String,
+      minLength: 3,
     },
     muted: {
-        type: Boolean,
-        default: false,
+      type: Boolean,
+      default: false,
     },
     messages: [MessageSchema],
     locked: {
-        type: Boolean,
-        default: false,
+      type: Boolean,
+      default: false,
     },
     passkey: {
-        type: String,
-        required: false,
-        minLength: 5,
+      type: String,
+      required: false,
+      minLength: 5,
     },
-}, {
+  },
+  {
     timestamps: true,
-})
+  }
+)
 
 groupClusterSchema.index({ createdBy: 1, name: 1 }, { unique: true })
 
