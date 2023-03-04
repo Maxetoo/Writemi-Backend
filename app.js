@@ -31,7 +31,11 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser(process.env.COOKIE))
 app.use(morgan('tiny'))
-app.use(cors())
+var corsOptions = {
+  origin: 'http://localhost:3000', //frontend url
+  credentials: true,
+}
+app.use(cors(corsOptions))
 app.use(helmet())
 
 app.get('/', (req, res) => {
