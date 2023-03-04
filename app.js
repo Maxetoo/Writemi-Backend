@@ -35,7 +35,7 @@ app.use(morgan('tiny'))
 const origin =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:3000'
-    : 'http://example.com'
+    : 'http://localhost:3000'
 app.use(
   cors({
     credentials: true,
