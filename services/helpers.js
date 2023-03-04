@@ -14,7 +14,7 @@ const createCookie = (res, token) => {
   const userToken = createJwt(token)
   const finalDate = 7 * (1000 * 60 * 60 * 24)
   return res.cookie('token', userToken, {
-    httpOnly: true,
+    httpOnly: false,
     expires: new Date(Date.now() + finalDate),
     signed: true,
     secure: process.env.NODE_ENV === 'production',
