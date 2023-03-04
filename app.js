@@ -42,7 +42,7 @@ const corsOptionsDelegate = function (req, callback) {
   callback(null, corsOptions) // callback expects two parameters: error and options
 }
 
-app.use(cors({ origin: 'http://localhost:3000' }))
+app.use(corsOptionsDelegate)
 app.use(helmet())
 
 app.get('/', (req, res) => {
