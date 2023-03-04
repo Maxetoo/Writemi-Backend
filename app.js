@@ -31,18 +31,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser(process.env.COOKIE))
 app.use(morgan('tiny'))
-const allowlist = ['http://localhost:3000', 'http://example2.com']
-const corsOptionsDelegate = function (req, callback) {
-  var corsOptions
-  if (allowlist.indexOf(req.header('Origin')) !== -1) {
-    corsOptions = { origin: true } // reflect (enable) the requested origin in the CORS response
-  } else {
-    corsOptions = { origin: false } // disable CORS for this request
-  }
-  callback(null, corsOptions) // callback expects two parameters: error and options
-}
-
-app.use(corsOptionsDelegate)
+app.use(cors())
 app.use(helmet())
 
 app.get('/', (req, res) => {
