@@ -10,34 +10,60 @@ const cloudinary = require('cloudinary').v2
 
 const getGroupClusters = async (req, res) => {
   const userID = req.user.userID
+  const { search } = req.query
+  const page = parseInt(req.query.page) || 1
+  const limit = parseInt(req.query.limit) || 12
+  const skip = (page - 1) * limit
+
   const cluster = await Group.find({
     createdBy: userID,
-  }).select('-messages')
+    name: {
+      $regex: search || '',
+      $options: 'i',
+    },
+  })
+    .select('-messages')
+    .limit(limit)
+    .skip(skip)
   res.status(StatusCodes.OK).json({
     cluster,
+    count: cluster.length,
+  })
+}
+
+const clearGroupClusters = async (req, res) => {
+  const userID = req.user.userID
+  await Group.deleteMany({
+    createdBy: userID,
+  })
+  res.status(StatusCodes.OK).json({
+    msg: `All groups cleared successfully`,
   })
 }
 
 const createSpace = async (req, res) => {
   const userID = req.user.userID
-  let { name, description, locked, passkey } = req.body
+  let { name, description, locked, passkey, image } = req.body
   passkey = uniqid().toString().slice(0, 5)
-  if (!name)
-    throw new CustomError.BadRequestError(`Space name needs to be provided`)
+  if (!name || !description)
+    throw new CustomError.BadRequestError(
+      `Group name and description needs to be provided`
+    )
   if (locked && !passkey)
-    throw new CustomError.BadRequestError(`Please fill in space key`)
+    throw new CustomError.BadRequestError(`Please fill in group key`)
   const spaceExist = await Group.findOne({
     name,
     createdBy: userID,
   })
   if (spaceExist)
-    throw new CustomError.BadRequestError(`Space with this name already exist`)
+    throw new CustomError.BadRequestError(`Group with this name already exist`)
   const space = await Group.create({
     createdBy: userID,
     name,
     description,
     locked,
     passkey,
+    image,
   })
   res.status(StatusCodes.OK).json({ space })
 }
@@ -49,7 +75,7 @@ const deleteSpace = async (req, res) => {
     createdBy: userID,
     _id: id,
   })
-  if (!spaceExist) throw new CustomError.BadRequestError(`Space does not exist`)
+  if (!spaceExist) throw new CustomError.BadRequestError(`Group does not exist`)
   const space = await Group.findOneAndDelete({
     _id: id,
     createdBy: userID,
@@ -57,6 +83,21 @@ const deleteSpace = async (req, res) => {
   res.status(StatusCodes.OK).json({
     msg: `Space removed successfully!`,
   })
+}
+
+const getSingleSpace = async (req, res) => {
+  const userID = req.user.userID
+  const { id } = req.params
+  const spaceExist = await Group.findOne({
+    createdBy: userID,
+    _id: id,
+  })
+  if (!spaceExist) throw new CustomError.BadRequestError(`Group does not exist`)
+  const group = await Group.findOne({
+    _id: id,
+    createdBy: userID,
+  })
+  res.status(StatusCodes.OK).json({ group })
 }
 
 const editSpace = async (req, res) => {
@@ -79,7 +120,7 @@ const editSpace = async (req, res) => {
     }
   )
   res.status(StatusCodes.OK).json({
-    msg: `Space updated successfully!`,
+    msg: `Group updated successfully!`,
   })
 }
 
@@ -114,8 +155,13 @@ const addGroupMessage = async (req, res) => {
 }
 
 const getGroupMessages = async (req, res) => {
+  const { search } = req.query
   const { id } = req.params
   const { passkey } = req.body
+  const page = parseInt(req.query.page) || 1
+  const limit = parseInt(req.query.limit) || 10
+  const skip = (page - 1) * limit
+  // const userID = req.user.userID
   const token = checkUser(req)
   const groupExist = await Group.findOne({
     _id: id,
@@ -140,7 +186,14 @@ const getGroupMessages = async (req, res) => {
   if (!groupExist) throw new CustomError.NotFoundError(`Space do not exist`)
   const space = await Group.find({
     _id: id,
-  }).select('messages -_id')
+    'messages.message': {
+      $regex: search || '',
+      $options: 'i',
+    },
+  })
+    .select('messages -_id')
+    .limit(limit)
+    .skip(skip)
   res.status(StatusCodes.OK).json({
     space,
   })
@@ -291,6 +344,7 @@ module.exports = {
   getGroupClusters,
   createSpace,
   deleteSpace,
+  getSingleSpace,
   editSpace,
   addGroupMessage,
   getGroupMessages,
@@ -298,4 +352,5 @@ module.exports = {
   addGroupDownvote,
   reportUserMessage,
   uploadGroupImage,
+  clearGroupClusters,
 }

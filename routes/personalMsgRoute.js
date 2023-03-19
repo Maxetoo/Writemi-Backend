@@ -1,61 +1,66 @@
 const express = require('express')
 const PersonalMsgRoute = express.Router()
 const {
-    addMessage,
-    deleteMessage,
-    getAllPersonalMessages,
-    getAllMessages,
-    getAllArchivedMessages,
-    getAllFlaggedMessages,
-    getAllFavoriteMessages,
-    addToFavourite,
-    addToArchive,
-    addToFlagged,
-    removeFromFavourite,
-    removeFromArchive,
-    removeFromFlagged,
+  addMessage,
+  deleteMessage,
+  getAllPersonalMessages,
+  getAllMessages,
+  getAllArchivedMessages,
+  getAllFlaggedMessages,
+  getAllFavoriteMessages,
+  addToFavourite,
+  addToArchive,
+  addToFlagged,
+  removeFromFavourite,
+  removeFromArchive,
+  removeFromFlagged,
+  clearAllPersonalMessages,
 } = require('../controllers/personalController')
 const {
-    authorization,
-    authorizeAccess,
+  authorization,
+  authorizeAccess,
 } = require('../middlewares/authorization')
 
 PersonalMsgRoute.route('/').post(addMessage)
 PersonalMsgRoute.route('/').get(authorization, getAllPersonalMessages)
 PersonalMsgRoute.route('/allMessages').get(
-    authorization,
-    authorizeAccess('admin'),
-    getAllMessages
+  authorization,
+  authorizeAccess('admin'),
+  getAllMessages
+)
+PersonalMsgRoute.route('/clearMessages').delete(
+  authorization,
+  clearAllPersonalMessages
 )
 PersonalMsgRoute.route('/archivedMessages').get(
-    authorization,
-    getAllArchivedMessages
+  authorization,
+  getAllArchivedMessages
 )
 PersonalMsgRoute.route('/flaggedMessages').get(
-    authorization,
-    getAllFlaggedMessages
+  authorization,
+  getAllFlaggedMessages
 )
 PersonalMsgRoute.route('/favouriteMessages').get(
-    authorization,
-    getAllFavoriteMessages
+  authorization,
+  getAllFavoriteMessages
 )
 PersonalMsgRoute.route('/addToFavourite/:id').patch(
-    authorization,
-    addToFavourite
+  authorization,
+  addToFavourite
 )
 PersonalMsgRoute.route('/addToArchive/:id').patch(authorization, addToArchive)
 PersonalMsgRoute.route('/addToFlagged/:id').patch(authorization, addToFlagged)
 PersonalMsgRoute.route('/removeFromFavourite/:id').patch(
-    authorization,
-    removeFromFavourite
+  authorization,
+  removeFromFavourite
 )
 PersonalMsgRoute.route('/removeFromArchive/:id').patch(
-    authorization,
-    removeFromArchive
+  authorization,
+  removeFromArchive
 )
 PersonalMsgRoute.route('/removeFromFlagged/:id').patch(
-    authorization,
-    removeFromFlagged
+  authorization,
+  removeFromFlagged
 )
 
 PersonalMsgRoute.route('/:id').delete(authorization, deleteMessage)

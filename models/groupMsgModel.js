@@ -12,7 +12,7 @@ const DownvoteSchema = new mongoose.Schema({
   },
 })
 
-const MessageSchema = new mongoose.Schema(
+const MessageSchema = mongoose.Schema(
   {
     message: {
       type: String,
@@ -54,7 +54,7 @@ const groupClusterSchema = new mongoose.Schema(
     image: {
       type: String,
       default:
-        'https://res.cloudinary.com/dfamily/image/upload/v1677877994/writeme/tmp-1-1677877988332_zkrbe4.jpg',
+        'https://ouch-cdn2.icons8.com/S07cWPmLAvXHhTADC95jExsKeh9oXk_4noCrCoSfZZY/rs:fit:256:256/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvNTg1/LzFjYWI0MDMwLWNm/N2EtNGU0Zi1hNThm/LTYxMzUxZmVkZTFm/NS5zdmc.png',
     },
     name: {
       type: String,

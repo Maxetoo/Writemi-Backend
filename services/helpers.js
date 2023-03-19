@@ -18,7 +18,8 @@ const createCookie = (res, token) => {
     expires: new Date(Date.now() + finalDate),
     signed: true,
     secure: process.env.NODE_ENV === 'production',
-    sameSite: process.env.NODE_ENV === 'development' ? true : 'none',
+    // sameSite: process.env.NODE_ENV === 'development' ? true : 'None',
+    SameSite: 'None',
   })
 }
 

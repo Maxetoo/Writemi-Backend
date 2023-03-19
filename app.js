@@ -26,6 +26,7 @@ const YAML = require('yamljs')
 const swaggerDocument = YAML.load('./swagger.yaml')
 
 // middlewares
+app.use(cors({ credential: true, origin: true }))
 app.use(fileUploader({ useTempFiles: true }))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -44,11 +45,10 @@ app.use(function (req, res, next) {
   )
   next()
 })
-var corsOptions = {
-  origin: 'http://localhost:3000', //frontend url
-  credentials: true,
-}
-app.use(cors(corsOptions))
+// var corsOptions = {
+//   origin: 'http://localhost:3000', //frontend url
+//   credentials: true,
+// }
 
 app.use(helmet())
 
