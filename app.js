@@ -27,25 +27,25 @@ const YAML = require('yamljs')
 const swaggerDocument = YAML.load('./swagger.yaml')
 
 // middlewares
-app.use(cors({ credential: true, origin: '*' }))
+app.use(cors({ credential: true, origin: 'https://writemi.onrender.com' }))
 app.use(fileUploader({ useTempFiles: true }))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser(process.env.COOKIE))
 app.use(morgan('tiny'))
-// app.use(function (req, res, next) {
-//   res.header('Access-Control-Allow-Credentials', true)
-//   res.header('Access-Control-Allow-Origin', req.headers.origin)
-//   res.header(
-//     'Access-Control-Allow-Methods',
-//     'GET,PUT,POST,DELETE,UPDATE,OPTIONS'
-//   )
-//   res.header(
-//     'Access-Control-Allow-Headers',
-//     'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept'
-//   )
-//   next()
-// })
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Credentials', true)
+  res.header('Access-Control-Allow-Origin', 'https://writemi.onrender.com')
+  res.header(
+    'Access-Control-Allow-Methods',
+    'GET,PUT,POST,DELETE,UPDATE,OPTIONS'
+  )
+  res.header(
+    'Access-Control-Allow-Headers',
+    'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept'
+  )
+  next()
+})
 // var corsOptions = {
 //   origin: 'http://localhost:3000', //frontend url
 //   credentials: true,
