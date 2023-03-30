@@ -27,7 +27,7 @@ const YAML = require('yamljs')
 const swaggerDocument = YAML.load('./swagger.yaml')
 
 // middlewares
-app.use(cors({ credential: true, origin: 'https://writemi.onrender.com' }))
+app.use(cors({ credential: true, origin: '*' }))
 app.use(fileUploader({ useTempFiles: true }))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
