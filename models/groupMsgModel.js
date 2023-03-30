@@ -1,49 +1,49 @@
 const mongoose = require('mongoose')
 
-const UpvoteSchema = new mongoose.Schema({
-  counts: {
-    type: mongoose.Types.ObjectId,
-  },
-})
+// const UpvoteSchema = new mongoose.Schema({
+//   counts: {
+//     type: mongoose.Types.ObjectId,
+//   },
+// })
 
-const DownvoteSchema = new mongoose.Schema({
-  counts: {
-    type: mongoose.Types.ObjectId,
-  },
-})
+// const DownvoteSchema = new mongoose.Schema({
+//   counts: {
+//     type: mongoose.Types.ObjectId,
+//   },
+// })
 
-const MessageSchema = mongoose.Schema(
-  {
-    message: {
-      type: String,
-      required: [true, 'Please input your message'],
-      minLength: 5,
-      maxLength: 250,
-    },
-    createdBy: {
-      type: mongoose.Types.ObjectId,
-    },
-    flagged: {
-      type: Boolean,
-      default: false,
-    },
-    upvotes: [UpvoteSchema],
-    downvotes: [DownvoteSchema],
-    reports: [
-      {
-        type: mongoose.Types.ObjectId,
-      },
-    ],
-    bookmarks: [
-      {
-        type: mongoose.Types.ObjectId,
-      },
-    ],
-  },
-  {
-    timestamps: true,
-  }
-)
+// const MessageSchema = mongoose.Schema(
+//   {
+//     message: {
+//       type: String,
+//       required: [true, 'Please input your message'],
+//       minLength: 5,
+//       maxLength: 250,
+//     },
+//     createdBy: {
+//       type: mongoose.Types.ObjectId,
+//     },
+//     flagged: {
+//       type: Boolean,
+//       default: false,
+//     },
+//     upvotes: [UpvoteSchema],
+//     downvotes: [DownvoteSchema],
+//     reports: [
+//       {
+//         type: mongoose.Types.ObjectId,
+//       },
+//     ],
+//     bookmarks: [
+//       {
+//         type: mongoose.Types.ObjectId,
+//       },
+//     ],
+//   },
+//   {
+//     timestamps: true,
+//   }
+// )
 
 const groupClusterSchema = new mongoose.Schema(
   {
@@ -70,16 +70,6 @@ const groupClusterSchema = new mongoose.Schema(
     muted: {
       type: Boolean,
       default: false,
-    },
-    messages: [MessageSchema],
-    locked: {
-      type: Boolean,
-      default: false,
-    },
-    passkey: {
-      type: String,
-      required: false,
-      minLength: 5,
     },
   },
   {

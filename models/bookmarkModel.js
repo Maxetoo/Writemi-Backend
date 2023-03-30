@@ -24,13 +24,4 @@ const BookmarkModel = new mongoose.Schema(
   }
 )
 
-BookmarkModel.post('save', async function () {
-  // await this.update({
-  //   _id: this.source
-  // }, {
-  //   $pull: {
-  //   }
-  // })
-})
-
 module.exports = mongoose.model('Bookmarks', BookmarkModel)

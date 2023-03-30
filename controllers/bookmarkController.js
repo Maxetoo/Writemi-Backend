@@ -28,11 +28,13 @@ const addToBookmark = async (req, res) => {
 
 const getAllBookmarks = async (req, res) => {
   const { search } = req.query
+  const userID = req.user.userID
   const page = parseInt(req.query.page) || 1
   const limit = parseInt(req.query.limit) || 7
   const skip = (page - 1) * limit
-  const total = await Bookmark.countDocuments({})
-  const userID = req.user.userID
+  const total = await Bookmark.countDocuments({
+    user: userID,
+  })
   const bookmarks = await Bookmark.find({
     user: userID,
     message: {

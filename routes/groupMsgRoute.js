@@ -1,18 +1,23 @@
 const express = require('express')
 const GroupRoute = express.Router()
 const {
-  getGroupClusters,
-  createSpace,
-  deleteSpace,
-  editSpace,
-  getSingleSpace,
-  addGroupMessage,
-  getGroupMessages,
-  addGroupUpvote,
-  addGroupDownvote,
-  reportUserMessage,
+  // getGroupClusters,
+  // createSpace,
+  // deleteSpace,
+  // editSpace,
+  // getSingleSpace,
+  // addGroupMessage,
+  // getGroupMessages,
+  // addGroupUpvote,
+  // addGroupDownvote,
+  // reportUserMessage,
   uploadGroupImage,
-  clearGroupClusters,
+  getGroups,
+  getSingleGroup,
+  createGroup,
+  clearAllGroups,
+  deleteGroup,
+  editGroup,
 } = require('../controllers/groupController')
 
 const {
@@ -20,18 +25,13 @@ const {
   authorizeAccess,
 } = require('../middlewares/authorization')
 
-GroupRoute.route('/').get(authorization, getGroupClusters)
-GroupRoute.route('/space').post(authorization, createSpace)
-GroupRoute.route('/space/clearSpaces').delete(authorization, clearGroupClusters)
+GroupRoute.route('/').get(authorization, getGroups)
+GroupRoute.route('/space').post(authorization, createGroup)
+GroupRoute.route('/space/clearSpaces').delete(authorization, clearAllGroups)
 GroupRoute.route('/space/uploadImage').post(authorization, uploadGroupImage)
 GroupRoute.route('/space/:id')
-  .patch(authorization, editSpace)
-  .delete(authorization, deleteSpace)
-GroupRoute.route('/addMessage/:id').patch(addGroupMessage)
-GroupRoute.route('/getMessage/:id').get(getGroupMessages)
-GroupRoute.route('/getGroup/:id').get(authorization, getSingleSpace)
-GroupRoute.route('/addUpvote/:id').patch(authorization, addGroupUpvote)
-GroupRoute.route('/addDownvote/:id').patch(authorization, addGroupDownvote)
-GroupRoute.route('/reportMessage/:id').patch(authorization, reportUserMessage)
+  .patch(authorization, editGroup)
+  .delete(authorization, deleteGroup)
+GroupRoute.route('/getGroup/:id').get(authorization, getSingleGroup)
 
 module.exports = GroupRoute

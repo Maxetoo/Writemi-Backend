@@ -46,12 +46,8 @@ const UserSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    passwordRecovery: {
+    resetToken: {
       type: String,
-    },
-    bookmarks: {
-      type: Array,
-      ref: 'Bookmark',
     },
     reports: [
       {
@@ -68,9 +64,6 @@ UserSchema.pre('save', async function () {
   if (!this.isModified('password')) return
   const salt = await bcrypt.genSalt()
   this.password = await bcrypt.hash(this.password, salt)
-  if (this.isModified('password')) {
-    console.log('modification true')
-  }
 })
 
 UserSchema.methods.comparePassword = async function (password) {
@@ -87,51 +80,6 @@ UserSchema.pre('remove', async function () {
       createdBy: this._id,
     })
   }
-})
-
-UserSchema.statics.userSuspension = async function () {
-  const userID = this._id
-  const timeDuration = 3 * (1000 * 60 * 60 * 24)
-  const totalDuration = new Date(Date.now() + timeDuration).getTime()
-  const presentDay = new Date(Date.now()).getTime()
-  try {
-    if (this.role !== 'admin' && this.reports.length > 3) {
-      const updatedUser = await this.model('User').findOneAndUpdate(
-        {
-          _id: userID,
-        },
-        {
-          suspended: true,
-          suspensionDuration: totalDuration,
-        },
-        {
-          new: true,
-          runValidators: true,
-        }
-      )
-      if (presentDay > updatedUser.suspensionDuration) {
-        await this.model('User').findOneAndUpdate(
-          {
-            _id: userID,
-          },
-          {
-            suspended: false,
-            reports: [],
-          },
-          {
-            new: true,
-            runValidators: true,
-          }
-        )
-      }
-    }
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-UserSchema.post('save', async function () {
-  await this.constructor.userSuspension()
 })
 
 UserSchema.index({ email: 1, username: 1 }, { unique: true })
