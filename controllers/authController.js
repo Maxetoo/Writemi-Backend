@@ -176,7 +176,7 @@ const forgotPassword = async (req, res) => {
 
   const finalDate = 20 * (1000 * 60)
   res.cookie('validEmail', uniqid(), {
-    httpOnly: false,
+    httpOnly: true,
     expires: new Date(Date.now() + finalDate),
     signed: true,
     secure: process.env.NODE_ENV === 'production',
@@ -202,7 +202,7 @@ const confirmToken = async (req, res) => {
   const finalDate = 20 * (1000 * 60)
 
   res.cookie('validToken', user.username, {
-    httpOnly: false,
+    httpOnly: true,
     expires: new Date(Date.now() + finalDate),
     signed: true,
     secure: process.env.NODE_ENV === 'production',
