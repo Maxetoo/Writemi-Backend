@@ -27,9 +27,7 @@ const YAML = require('yamljs')
 const swaggerDocument = YAML.load('./swagger.yaml')
 
 // middlewares
-app.use(
-  cors({ credentials: true, origin: 'https://writemi-frontend.vercel.app' })
-)
+app.use(cors({ credentials: true, origin: true }))
 app.use(fileUploader({ useTempFiles: true }))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
