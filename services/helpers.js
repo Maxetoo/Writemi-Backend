@@ -20,7 +20,7 @@ const createCookie = (res, token) => {
     expires: new Date(Date.now() + finalDate),
     signed: true,
     secure: true,
-    sameSite: 'none',
+    sameSite: 'strict',
   })
 }
 
