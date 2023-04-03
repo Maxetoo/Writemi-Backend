@@ -52,7 +52,7 @@ const login = async (req, res) => {
     userID: user._id,
   }
   createCookie(res, token)
-  res.status(StatusCodes.CREATED).json({
+  res.status(StatusCodes.OK).json({
     user,
   })
 }
