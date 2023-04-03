@@ -28,20 +28,12 @@ const swaggerDocument = YAML.load('./swagger.yaml')
 
 // middlewares
 
-app.use((req, res, next) => {
-  res.setHeader(
-    'Access-Control-Allow-Origin',
-    'https://writemi-frontend.vercel.app'
-  )
-  res.setHeader('Access-Control-Allow-Credentials', 'true')
-  next()
-})
-// app.use(
-//   cors({
-//     credentials: true,
-//     origin: 'https://writemi-frontend.vercel.app',
-//   })
-// )
+app.use(
+  cors({
+    credentials: true,
+    origin: 'https://writemi-frontend.vercel.app',
+  })
+)
 app.use(fileUploader({ useTempFiles: true }))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
