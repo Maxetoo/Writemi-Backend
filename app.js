@@ -31,7 +31,7 @@ const swaggerDocument = YAML.load('./swagger.yaml')
 app.use(
   cors({
     credentials: true,
-    origin: 'https://writemi-frontend.vercel.app',
+    origin: '*',
   })
 )
 app.use(fileUploader({ useTempFiles: true }))
