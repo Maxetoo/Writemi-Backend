@@ -51,9 +51,11 @@ const login = async (req, res) => {
     role: user.role,
     userID: user._id,
   }
-  createCookie(res, token)
+  const login_cookie = createCookie(res, token);
   res.status(StatusCodes.OK).json({
     user,
+    login_cookie,
+    msg: 'sending login cookie',
   })
 }
 

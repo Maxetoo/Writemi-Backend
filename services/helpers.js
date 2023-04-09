@@ -13,7 +13,7 @@ const verifyJwt = (token) => {
 const createCookie = (res, token) => {
   const userToken = createJwt(token)
   const finalDate = 7 * (1000 * 60 * 60 * 24)
-  return res.cookie('token', userToken, {
+  res.cookie('token', userToken, {
     httpOnly: false,
     domain: 'writemi.onrender.com',
     expires: new Date(Date.now() + finalDate),
@@ -21,6 +21,7 @@ const createCookie = (res, token) => {
     secure: true,
     // sameSite: 'strict',
   })
+  return {"token": "token", userToken, "expires": (new Date(Date.now() + finalDate)) }
 }
 
 module.exports = {
