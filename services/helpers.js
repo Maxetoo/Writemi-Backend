@@ -20,7 +20,7 @@ const createCookie = (res, token) => {
     secure: true,
     // sameSite: 'strict',
   })
-  return {"token": "token", userToken, "expires": (new Date(Date.now() + finalDate) }
+  return {"token": "token", userToken, "expires": (new Date(Date.now() + finalDate)) }
 }
 
 module.exports = {
