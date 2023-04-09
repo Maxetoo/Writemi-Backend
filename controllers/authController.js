@@ -51,12 +51,11 @@ const login = async (req, res) => {
     role: user.role,
     userID: user._id,
   }
-  createCookie(res, token);
-  //test cookie 
-  res.cookie('logincookie-test', 'yo, this is some cookie', {    httpOnly : false    });
+  const login_cookie = createCookie(res, token);
   res.status(StatusCodes.OK).json({
     user,
-    msg: 'should now have a cookie',
+    login_cookie,
+    msg: 'sending login cookie',
   })
 }
 
