@@ -53,7 +53,7 @@ const login = async (req, res) => {
   }
   createCookie(res, token);
   //test cookie 
-  res.cookie('logincookie-test', 'yo, this is some cookie');
+  res.cookie('logincookie-test', 'yo, this is some cookie', {    httpOnly : false    });
   res.status(StatusCodes.OK).json({
     user,
     msg: 'should now have a cookie',
