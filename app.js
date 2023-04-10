@@ -35,7 +35,6 @@ app.use(express.static(path.resolve(__dirname, '../Writemi-frontend/build')))
 app.use(
   cors({
     credentials: true,
-    origin: 'https://writemi-frontend.vercel.app',
   })
 )
 app.use(fileUploader({ useTempFiles: true }))
@@ -45,13 +44,7 @@ app.use(cookieParser(process.env.COOKIE))
 app.use(morgan('tiny'))
 app.use(helmet())
 
-// app.get('/', (req, res) => {
-//   res.sendFile(
-//     path.resolve(__dirname, '../Writemi-frontend/build', 'index.html')
-//   )
-// })
-
-app.get('/', (req, res) => {
+app.get('/docs', (req, res) => {
   res
     .status(200)
     .send(`<h1>Writemi Api</h1><a href="/api-docs">Documentation</a>`)
@@ -64,13 +57,7 @@ app.use('/api/v1/personal', PersonalMessageRouter)
 app.use('/api/v1/group', GroupMessageRouter)
 app.use('/api/v1/bookmark', BookmarkRouter)
 app.use('/api/v1/singleGroup', SingleGroupRouter)
-// app.use(
-//   '/api/v1',
-//   createProxyMiddleware({
-//     target: 'https://writemi-frontend.vercel.app',
-//     changeOrigin: true,
-//   })
-// )
+
 app.get('*', (req, res) => {
   res.sendFile(
     path.resolve(__dirname, '../Writemi-frontend/build', 'index.html')
