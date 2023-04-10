@@ -28,8 +28,9 @@ const swaggerUi = require('swagger-ui-express')
 const YAML = require('yamljs')
 const swaggerDocument = YAML.load('./swagger.yaml')
 
+// app.use(express.static(path.resolve(__dirname, './client/build')))
 // middlewares
-// app.use(express.static(path.resolve(__dirname, '../Writemi-frontend/build')))
+app.use(express.static(path.resolve(__dirname, '../Writemi-frontend/build')))
 
 app.use(
   cors({
@@ -70,6 +71,11 @@ app.use('/api/v1/singleGroup', SingleGroupRouter)
 //     changeOrigin: true,
 //   })
 // )
+app.get('*', (req, res) => {
+  res.sendFile(
+    path.resolve(__dirname, '../Writemi-frontend/build', 'index.html')
+  )
+})
 app.use(notFoundMiddleware)
 app.use(errorMiddleware)
 const port = process.env.PORT || 5000
