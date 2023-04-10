@@ -15,13 +15,21 @@ const createCookie = (res, token) => {
   const finalDate = 7 * (1000 * 60 * 60 * 24)
   res.cookie('token', userToken, {
     httpOnly: false,
-    domain: 'writemi.onrender.com',
+    domain: 'writemi-frontend.vercel.app',
     expires: new Date(Date.now() + finalDate),
     signed: true,
     secure: true,
     // sameSite: 'strict',
   })
-  return {"token": "token", userToken, "expires": (new Date(Date.now() + finalDate)) }
+  return {
+    name: 'token',
+    value: userToken,
+    httpOnly: false,
+    expires: new Date(Date.now() + finalDate),
+    signed: true,
+    secure: true,
+    sameSite: 'strict',
+  }
 }
 
 module.exports = {
