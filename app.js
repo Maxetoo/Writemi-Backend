@@ -56,13 +56,6 @@ app.get('/', (req, res) => {
     .send(`<h1>Writemi Api</h1><a href="/api-docs">Documentation</a>`)
 })
 
-app.use(
-  '/api/v1',
-  createProxyMiddleware({
-    target: 'https://writemi-frontend.vercel.app',
-    changeOrigin: true,
-  })
-)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.use('/api/v1/auth', AuthRouter)
 app.use('/api/v1/user', UserRouter)
@@ -70,6 +63,13 @@ app.use('/api/v1/personal', PersonalMessageRouter)
 app.use('/api/v1/group', GroupMessageRouter)
 app.use('/api/v1/bookmark', BookmarkRouter)
 app.use('/api/v1/singleGroup', SingleGroupRouter)
+// app.use(
+//   '/api/v1',
+//   createProxyMiddleware({
+//     target: 'https://writemi-frontend.vercel.app',
+//     changeOrigin: true,
+//   })
+// )
 app.use(notFoundMiddleware)
 app.use(errorMiddleware)
 const port = process.env.PORT || 5000
