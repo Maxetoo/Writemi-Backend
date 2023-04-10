@@ -2,6 +2,8 @@ require('express-async-errors')
 require('dotenv').config()
 const express = require('express')
 const app = express()
+const path = require('path')
+const { createProxyMiddleware } = require('http-proxy-middleware')
 const fileUploader = require('express-fileupload')
 const mongoose = require('mongoose')
 const cookieParser = require('cookie-parser')
@@ -27,11 +29,12 @@ const YAML = require('yamljs')
 const swaggerDocument = YAML.load('./swagger.yaml')
 
 // middlewares
+// app.use(express.static(path.resolve(__dirname, '../Writemi-frontend/build')))
 
 app.use(
   cors({
     credentials: true,
-    origin: 'http://writemi-frontend.vercel.app',
+    origin: 'https://writemi-frontend.vercel.app',
   })
 )
 app.use(fileUploader({ useTempFiles: true }))
@@ -41,12 +44,25 @@ app.use(cookieParser(process.env.COOKIE))
 app.use(morgan('tiny'))
 app.use(helmet())
 
+// app.get('/', (req, res) => {
+//   res.sendFile(
+//     path.resolve(__dirname, '../Writemi-frontend/build', 'index.html')
+//   )
+// })
+
 app.get('/', (req, res) => {
   res
     .status(200)
     .send(`<h1>Writemi Api</h1><a href="/api-docs">Documentation</a>`)
 })
 
+app.use(
+  '/api/v1',
+  createProxyMiddleware({
+    target: 'https://writemi-frontend.vercel.app',
+    changeOrigin: true,
+  })
+)
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 app.use('/api/v1/auth', AuthRouter)
 app.use('/api/v1/user', UserRouter)
